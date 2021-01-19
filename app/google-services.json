@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "968011439510",
+    "project_id": "tree-plantation-c6258",
+    "storage_bucket": "tree-plantation-c6258.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968011439510:android:ec9fc2e557e27a6b8011b7",
+        "android_client_info": {
+          "package_name": "com.example.uman_android_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "968011439510-hil3lqlvuumkirtj4nlioq04465r7gf8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8zUZt5GZtP3opAwwTDApFfYDPy1akITs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "968011439510-hil3lqlvuumkirtj4nlioq04465r7gf8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
