@@ -34,7 +34,7 @@ public class PlantationHistoryActivity extends AppCompatActivity {
 
         Query query = FirebaseFirestore.getInstance()
                 .collection("tree1")
-                .whereEqualTo("id", "1");
+                .whereEqualTo("owner", "user1");
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

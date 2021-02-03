@@ -143,7 +143,7 @@ public class AddTreeFragment extends Fragment {
         commentInput = view.findViewById(R.id.plantComment);
         gps = view.findViewById(R.id.treeGeo);
         gps.setText(MainActivity.gps);
-        treePosition = gps.toString();
+        treePosition = MainActivity.gps;
 
         //wait to update after finishing functions
         treePhoto = "";

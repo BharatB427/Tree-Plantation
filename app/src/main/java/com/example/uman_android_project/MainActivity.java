@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
             }
             Log.i(TAG, "locationUpdates: " + location.getLongitude());
             gps = stringBuffer.toString();
+            Log.i(TAG, "location"+ gps);
         }else {
             gps = "no.......";
         }

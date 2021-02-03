@@ -31,6 +31,9 @@ public class Tree implements Serializable {
         this.owner = owner;
     }
 
+    public Tree(){
+    }
+
     public String getId() {
         return id;
     }

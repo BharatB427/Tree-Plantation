@@ -44,13 +44,13 @@ public class AdapterTree extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((MyViewHolder) holder).name.setText(data.get(position).getName());
+        ((MyViewHolder) holder).name.setText("Name: " + data.get(position).getName());
         Log.d("TAG", "onBindViewHolder: name" + data.get(position).getName());
-        ((MyViewHolder) holder).date.setText(data.get(position).getDate());
+        ((MyViewHolder) holder).date.setText("Date: " + data.get(position).getDate());
         Log.d("TAG", "onBindViewHolder: date" + data.get(position).getDate());
-        ((MyViewHolder) holder).category.setText(data.get(position).getCategory());
+        ((MyViewHolder) holder).category.setText("Category: " + data.get(position).getCategory());
         Log.d("TAG", "onBindViewHolder: cate" + data.get(position).getCategory());
-        ((MyViewHolder) holder).size.setText(data.get(position).getSize());
+        ((MyViewHolder) holder).size.setText("Size: " + data.get(position).getSize());
         Log.d("TAG", "onBindViewHolder: size" + data.get(position).getSize());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
