@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 
 import com.facebook.AccessToken;
@@ -22,35 +25,36 @@ public class LoginActivity extends AppCompatActivity {
     CallbackManager callbackManager;
     private static final String EMAIL = "email";
     LoginButton loginButton;
+    Button offlineButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
-
-//        AppEventsLogger.activateApp(this);
-
-
-
         callbackManager = CallbackManager.Factory.create();
-
-
+        offlineButton= findViewById(R.id.button2);
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setPermissions(Arrays.asList(EMAIL));
+        loginButton.setReadPermissions(Arrays.asList(EMAIL));
         // If you are using in a fragment, call loginButton.setFragment(this);
 
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+        offlineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(LoginActivity.this, Bottom_Nav.class);
+                startActivity(i);
+            }
+        });
+
 
         // Callback registration
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 // App code
-                Intent intent= new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(intent);
+                Intent i = new Intent(LoginActivity.this, Bottom_Nav.class);
+                startActivity(i);
             }
 
             @Override
@@ -63,5 +67,18 @@ public class LoginActivity extends AppCompatActivity {
                 // App code
             }
         });
+
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+
+    }
+//custom button
+
+//LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
