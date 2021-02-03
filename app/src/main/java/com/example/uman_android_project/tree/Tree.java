@@ -8,12 +8,21 @@ public class Tree implements Serializable {
     private String name;
     private String category;
     private String size;
-    private String position;
+    private String gps;
     private String date;
     private String photo;
     private String comment;
 
-    public Tree() {
+    public Tree(String name, String size, String category, String gps, String date, String comment, String owner) {
+        this.id = "1";
+        this.photo = "photo";
+        this.name = name;
+        this.size = size;
+        this.category = category;
+        this.gps = gps;
+        this.date = date;
+        this.comment = comment;
+        this.owner = owner;
     }
 
     public Tree(String id, String name, String owner) {
@@ -62,12 +71,12 @@ public class Tree implements Serializable {
         this.size = size;
     }
 
-    public String getPosition() {
-        return position;
+    public String getGps() {
+        return gps;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setGps(String gps) {
+        this.gps = gps;
     }
 
     public String getDate() {

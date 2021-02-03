@@ -33,7 +33,7 @@ public class PlantationDetailActivity extends AppCompatActivity {
         name.setText(tree.getName());
         category.setText(tree.getCategory());
         size.setText(tree.getSize());
-        geo.setText(tree.getPosition());
+        geo.setText(tree.getGps());
         date.setText(tree.getDate());
         comment.setText(tree.getComment());
     }

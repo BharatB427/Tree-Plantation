@@ -1,13 +1,22 @@
 package com.example.uman_android_project.fragment;
 
-import android.annotation.SuppressLint;
+import android.Manifest;
+import android.content.Context;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +27,19 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.uman_android_project.MainActivity;
+import com.example.uman_android_project.PlantationHistoryActivity;
 import com.example.uman_android_project.R;
+import com.example.uman_android_project.tree.Tree;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.DecimalFormat;
+
+import static android.content.Context.LOCATION_SERVICE;
 import static com.example.uman_android_project.MainActivity.currentDate;
+import static com.example.uman_android_project.MainActivity.db;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +52,7 @@ public class AddTreeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "AddTree";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -71,9 +89,11 @@ public class AddTreeFragment extends Fragment {
         }
     }
 
+
+
     private Spinner spinner_category;
     private Spinner spinner_size;
-    private EditText nameInput, commentInput;
+    private EditText nameInput, commentInput, gps;
     private TextView dateInput;
     private Button chooseDate, addPhoto, submitForm;
 
@@ -84,6 +104,8 @@ public class AddTreeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_add_tree, container, false);
+
+
 
         spinner_category = view.findViewById(R.id.treeCategory);
         spinner_size = view.findViewById(R.id.treeSize);
@@ -118,12 +140,12 @@ public class AddTreeFragment extends Fragment {
         });
 
         nameInput = view.findViewById(R.id.treeName);
-
         commentInput = view.findViewById(R.id.plantComment);
-
+        gps = view.findViewById(R.id.treeGeo);
+        gps.setText(MainActivity.gps);
+        treePosition = gps.toString();
 
         //wait to update after finishing functions
-        treePosition = "";
         treePhoto = "";
 
         dateInput = view.findViewById(R.id.plantDate);
@@ -164,6 +186,8 @@ public class AddTreeFragment extends Fragment {
         });
         treePlantDate = dateInput.getText().toString();
 
+
+
         submitForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,7 +210,17 @@ public class AddTreeFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //submit this form
+                        SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("id", "user1");
+                        editor.commit();
+                        String userId = sharedPreferences.getString("id", "notExist");
+                        Tree tree = new Tree(treeName, treeSize, treeCategory, treePosition, treePlantDate, treeComment, userId);
+                        db.collection("tree1").document().set(tree);
                         dialog.cancel();
+                        Toast.makeText(getContext(),"Submit successfully", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        startActivity(intent);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
