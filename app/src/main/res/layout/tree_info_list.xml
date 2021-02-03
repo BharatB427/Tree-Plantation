@@ -3,22 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:orientation="vertical">
+    android:layout_height="100dp"
+    android:orientation="vertical"
+    android:paddingLeft="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
         <TextView
-            android:id="@+id/first_info"
+            android:id="@+id/treeName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
-            android:layout_weight="30"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="1"
             android:gravity="center|left"
             android:textColor="@android:color/black" />
 
@@ -26,44 +38,31 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/treeCategory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:textColor="@android:color/black" />
 
-            <TextView
-                android:id="@+id/last_info"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="3dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
-                android:gravity="center|left"
-                android:textColor="@android:color/black" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/treeSize"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/born_info"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="3dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
-                android:gravity="center|left"
-                android:textColor="@android:color/black" />
-
-        </LinearLayout>
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="1"
+            android:gravity="center|left"
+            android:textColor="@android:color/black" />
 
     </LinearLayout>
-
 
 </LinearLayout>
