@@ -93,7 +93,7 @@ public class AddTreeFragment extends Fragment {
 
     private Spinner spinner_category;
     private Spinner spinner_size;
-    private EditText nameInput, commentInput, gps;
+    private EditText nameInput, commentInput, gps_lon, gps_lat;
     private TextView dateInput;
     private Button chooseDate, addPhoto, submitForm;
 
@@ -141,8 +141,13 @@ public class AddTreeFragment extends Fragment {
 
         nameInput = view.findViewById(R.id.treeName);
         commentInput = view.findViewById(R.id.plantComment);
-        gps = view.findViewById(R.id.treeGeo);
-        gps.setText(MainActivity.gps);
+        gps_lon = view.findViewById(R.id.treeGeo_lon);
+        gps_lat = view.findViewById(R.id.treeGeo_lat);
+
+        gps_lon.setText(MainActivity.gps.split(",")[0]);
+        gps_lat.setText(MainActivity.gps.split(",")[1]);
+
+
         treePosition = MainActivity.gps;
 
         //wait to update after finishing functions

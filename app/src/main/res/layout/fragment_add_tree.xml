@@ -84,11 +84,30 @@
                 android:text="Geo position: "
                 android:textSize="25sp" />
             <EditText
-                android:id="@+id/treeGeo"
+                android:id="@+id/treeGeo_lon"
                 android:layout_width="230dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="5dp"
-                android:textSize="12sp"
+                android:textSize="18sp"
+                android:paddingLeft="5dp"
+                android:lines="1"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:enabled="false"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:textSize="25sp" />
+            <EditText
+                android:id="@+id/treeGeo_lat"
+                android:layout_width="230dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:textSize="18sp"
                 android:paddingLeft="5dp"
                 android:lines="1"
                 android:inputType="text"

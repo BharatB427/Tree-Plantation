@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private final int[] TAB_TITLES = new int[]{R.string.menu_main, R.string.menu_newTree, R.string.menu_profile};
-    private final int[] TAB_IMGS = new int[]{};
+    private final int[] TAB_IMGS = new int[]{R.drawable.home_menu, R.drawable.tree_menu, R.drawable.profile_menu};
 
     private CustomViewPager viewPager;
     private TabLayout tabLayout;
@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
             TextView tvTitle = (TextView) view.findViewById(R.id.txt_tab);
             tvTitle.setText(tab_titles[i]);
-            //ImageView imgTab = (ImageView) view.findViewById(R.id.img_tab);
-            //imgTab.setImageResource(tab_imgs[i]);
+            ImageView imgTab = (ImageView) view.findViewById(R.id.img_tab);
+            imgTab.setImageResource(tab_imgs[i]);
             tabLayout.addTab(tab);
         }
     }
