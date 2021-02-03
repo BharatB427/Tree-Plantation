@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Uman_Android_Project</string>
+
+    <string name="menu_main">Home</string>
+    <string name="menu_newTree">Plant Tree</string>
+    <string name="menu_profile">Profile</string>
+
+    <string-array name="tree_category">
+        <item>cate1</item>
+        <item>cate2</item>
+        <item>cate3</item>
+        <item>cate4</item>
+        <item>cate5</item>
+    </string-array>
+    <string-array name="tree_size">
+        <item>size1</item>
+        <item>size2</item>
+        <item>size3</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
