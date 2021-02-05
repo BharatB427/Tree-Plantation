@@ -7,38 +7,41 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ExifInterface;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.uman_android_project.GeoDegree;
 import com.example.uman_android_project.MainActivity;
-import com.example.uman_android_project.PlantationHistoryActivity;
 import com.example.uman_android_project.R;
 import com.example.uman_android_project.tree.Tree;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.DecimalFormat;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-import static android.content.Context.LOCATION_SERVICE;
-import static com.example.uman_android_project.MainActivity.currentDate;
 import static com.example.uman_android_project.MainActivity.db;
 
 /**
@@ -93,12 +96,15 @@ public class AddTreeFragment extends Fragment {
 
     private Spinner spinner_category;
     private Spinner spinner_size;
-    private EditText nameInput, commentInput, gps_lon, gps_lat;
-    private TextView dateInput;
+    private EditText nameInput, commentInput ;
+    private TextView dateInput,gps_lat,gps_lon;
     private Button chooseDate, addPhoto, submitForm;
-
+    private String path;
+    private ImageView imageView;
     private String treeName, treeCategory, treeSize, treePosition, treePlantDate, treePhoto, treeComment;
-
+    public static final int PICK_IMAGE = 1;
+    private String imgLat,imgLong;
+    private List<String> geoData;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -106,10 +112,10 @@ public class AddTreeFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_add_tree, container, false);
 
 
-
+        geoData= new ArrayList<>();
         spinner_category = view.findViewById(R.id.treeCategory);
         spinner_size = view.findViewById(R.id.treeSize);
-
+        imageView = view.findViewById(R.id.photo);
         ArrayAdapter spinnerCategoryAdapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(), R.array.tree_category, android.R.layout.simple_spinner_item);
         spinner_category.setAdapter(spinnerCategoryAdapter);
         ArrayAdapter spinnerSizeAdapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(), R.array.tree_size, android.R.layout.simple_spinner_item);
@@ -154,42 +160,21 @@ public class AddTreeFragment extends Fragment {
         treePhoto = "";
 
         dateInput = view.findViewById(R.id.plantDate);
-        dateInput.setText(currentDate);
-        chooseDate = view.findViewById(R.id.chooseDate);
+        //dateInput.setText(currentDate);
+        //chooseDate = view.findViewById(R.id.chooseDate);
         addPhoto = view.findViewById(R.id.addPhoto);
         submitForm = view.findViewById(R.id.submitForm);
 
-        chooseDate.setOnClickListener(new View.OnClickListener() {
+        addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                View viewDatePick = getLayoutInflater().inflate(R.layout.date_pick, null);
-                DatePicker datePicker = viewDatePick.findViewById(R.id.date_picker);
-                datePicker.setCalendarViewShown(false);
-                builder.setView(viewDatePick);
-                builder.setTitle("Please choose plant date");
-                builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        int year = datePicker.getYear();
-                        int month = datePicker.getMonth()+1;
-                        int dayOfMonth = datePicker.getDayOfMonth();
-                        dateInput.setText(dayOfMonth + "/" + month + "/" + year);
-                        treePlantDate = dateInput.getText().toString();
-                        chooseDate.setText("Modify");
-                        dialog.cancel();
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.create().show();
+                Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                startActivityForResult(gallery, PICK_IMAGE);
             }
         });
-        treePlantDate = dateInput.getText().toString();
+
+
+
 
 
 
@@ -239,6 +224,151 @@ public class AddTreeFragment extends Fragment {
         });
 
         return view;
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+
+            // When an Image is picked
+            if (requestCode == 1 && resultCode == -1 && null != data) {
+                // Get the Image from data
+
+                Uri path_image= data.getData();
+                path=getRealPathFromURI(path_image);
+                initialize();
+
+            } else {
+                Toast.makeText(getActivity(), "You haven't picked Image",
+                        Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG).show();
+        }
+    }
+    public String getRealPathFromURI(Uri contentUri) {
+
+        // can post image
+        String [] proj={MediaStore.Images.Media.DATA};
+        Cursor cursor =getActivity().getContentResolver().query(contentUri,
+                proj, // Which columns to return
+                null,       // WHERE clause; which rows to return (all rows)
+                null,       // WHERE clause selection arguments (none)
+                null); // Order-by clause (ascending by name)
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+
+        return cursor.getString(column_index);}
+
+
+    public void initialize(){
+        if (Build.VERSION.SDK_INT >= 23) {
+            int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
+        }
+        Bitmap bm = BitmapFactory.decodeFile(path);
+
+        imageView.setImageBitmap(bm);
+
+     dateInput.setText(ReadDate(path));
+        treePlantDate = dateInput.getText().toString();
+    gps_lat.setText(geoData.get(0));
+    gps_lon.setText(geoData.get(1));
+
+
+   // Toast.makeText(getActivity(),ReadExif(path),Toast.LENGTH_LONG).show();
+    }
+    String ReadDate(String file){
+        String exif="";
+        try {
+            ExifInterface exifInterface = new ExifInterface(file);
+
+
+            GeoDegree gs= new GeoDegree(exifInterface);
+            int Lat=gs.getLatitudeE6();
+            imgLat=String.valueOf(Lat);
+            int Long=gs.getLongitudeE6();
+            imgLong=String.valueOf(Long);
+
+            exif += exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
+
+            geoData = Arrays.asList(gs.toString().split(","));
+            Toast.makeText(getActivity(),
+                   "Data Successfully loaded from the Image!",
+                    Toast.LENGTH_LONG).show();
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            Toast.makeText(getActivity(),
+                    e.toString(),
+                    Toast.LENGTH_LONG).show();
+        }
+
+        return exif;
+    }
+    String ReadLat(String file){
+        String exif="";
+        try {
+            ExifInterface exifInterface = new ExifInterface(file);
+
+
+
+            exif +=  exifInterface.getAttribute(ExifInterface.TAG_GPS_LATITUDE);
+
+
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+
+        }
+
+        return exif;
+    }
+
+    String ReadLong(String file){
+        String exif="";
+        try {
+            ExifInterface exifInterface = new ExifInterface(file);
+
+
+
+            exif +=exifInterface.getAttribute(ExifInterface.TAG_GPS_LONGITUDE);
+
+
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            Toast.makeText(getActivity(),
+                    e.toString(),
+                    Toast.LENGTH_LONG).show();
+        }
+
+        return exif;
+    }
+
+
+    String ReadExif(String file){
+        String exif="Exif: " + file;
+        try {
+            ExifInterface exifInterface = new ExifInterface(file);
+
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            Toast.makeText(getActivity(),
+                    e.toString(),
+                    Toast.LENGTH_LONG).show();
+        }
+
+        return exif;
     }
 
 }

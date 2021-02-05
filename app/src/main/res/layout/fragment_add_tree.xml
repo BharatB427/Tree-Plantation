@@ -76,6 +76,67 @@
                 android:paddingLeft="5dp"/>
         </TableRow>
 
+
+
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp">
+
+
+
+        <TableRow
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:text="Photo: "
+                android:textSize="25sp" />
+
+            <Button
+                android:id="@+id/addPhoto"
+                android:layout_width="100dp"
+                android:height="40dp"
+                android:text="Add"
+                android:textAllCaps="false"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:text=" "
+                android:textSize="25sp" />
+            <ImageView
+                android:id="@+id/photo"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                />
+        </TableRow>
+
+
+
+        <TableRow
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:text="Date: "
+                android:textSize="25sp" />
+            <TextView
+                android:id="@+id/plantDate"
+                android:layout_width="130dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:paddingLeft="5dp"
+                android:lines="1"
+                android:enabled="false"/>
+        </TableRow>
+
+
         <TableRow
             android:layout_marginTop="5dp">
             <TextView
@@ -83,7 +144,7 @@
                 android:layout_height="40dp"
                 android:text="Geo position: "
                 android:textSize="25sp" />
-            <EditText
+            <TextView
                 android:id="@+id/treeGeo_lon"
                 android:layout_width="230dp"
                 android:layout_height="40dp"
@@ -101,8 +162,9 @@
             <TextView
                 android:layout_width="150dp"
                 android:layout_height="40dp"
+                android:text="Long-Lat"
                 android:textSize="25sp" />
-            <EditText
+            <TextView
                 android:id="@+id/treeGeo_lat"
                 android:layout_width="230dp"
                 android:layout_height="40dp"
@@ -113,61 +175,6 @@
                 android:inputType="text"
                 android:imeOptions="actionDone"
                 android:enabled="false"/>
-        </TableRow>
-
-    </TableLayout>
-
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp">
-
-        <TableRow
-            android:layout_marginTop="5dp">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="40dp"
-                android:text="Date: "
-                android:textSize="25sp" />
-            <TextView
-                android:id="@+id/plantDate"
-                android:layout_width="130dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="5dp"
-                android:paddingLeft="5dp"
-                android:lines="1"
-                android:enabled="false"/>
-            <Button
-                android:id="@+id/chooseDate"
-                android:layout_width="100dp"
-                android:height="40dp"
-                android:text="Modify"
-                android:textAllCaps="false"/>
-        </TableRow>
-
-        <TableRow
-            android:layout_marginTop="5dp">
-            <TextView
-                android:layout_width="150dp"
-                android:layout_height="40dp"
-                android:text="Photo: "
-                android:textSize="25sp" />
-            <EditText
-                android:id="@+id/photo"
-                android:layout_width="130dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="5dp"
-                android:paddingLeft="5dp"
-                android:lines="1"
-                android:inputType="text"
-                android:imeOptions="actionDone"
-                android:enabled="false"/>
-            <Button
-                android:id="@+id/addPhoto"
-                android:layout_width="100dp"
-                android:height="40dp"
-                android:text="Add"
-                android:textAllCaps="false"/>
         </TableRow>
     </TableLayout>
 
