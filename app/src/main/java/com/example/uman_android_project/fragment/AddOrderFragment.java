@@ -1,8 +1,8 @@
 package com.example.uman_android_project.fragment;
 
 import android.Manifest;
-import android.content.Context;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,23 +14,20 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.example.uman_android_project.GeoDegree;
 import com.example.uman_android_project.MainActivity;
@@ -46,10 +43,10 @@ import static com.example.uman_android_project.MainActivity.db;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AddTreeFragment#newInstance} factory method to
+ * Use the {@link AddOrderFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddTreeFragment extends Fragment {
+public class AddOrderFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,7 +58,7 @@ public class AddTreeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public AddTreeFragment() {
+    public AddOrderFragment() {
         // Required empty public constructor
     }
 
@@ -74,8 +71,8 @@ public class AddTreeFragment extends Fragment {
      * @return A new instance of fragment AddTreeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AddTreeFragment newInstance(String param1, String param2) {
-        AddTreeFragment fragment = new AddTreeFragment();
+    public static AddOrderFragment newInstance(String param1, String param2) {
+        AddOrderFragment fragment = new AddOrderFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -90,62 +87,43 @@ public class AddTreeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
 
-
-    private Spinner spinner_category;
-    private Spinner spinner_size;
-    private EditText nameInput, commentInput ;
+    private EditText areaInput, commentInput ;
     private TextView dateInput,gps_lat,gps_lon;
-    private Button chooseDate, addPhoto, submitForm;
+    private Button chooseDate, addPhoto, submitForm, newOrderTable;
     private String path;
     private ImageView imageView;
-    private String treeName, treeCategory, treeSize, treePosition, treePlantDate, treePhoto, treeComment;
+    private String orderArea, treePosition, treePlantDate, treePhoto, areaComment;
     public static final int PICK_IMAGE = 1;
     private String imgLat,imgLong;
     private List<String> geoData;
+    private LinearLayout orderTable;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_add_tree, container, false);
+        View view =  inflater.inflate(R.layout.fragment_add_order, container, false);
 
+        orderTable = view.findViewById(R.id.orderTable);
+        orderTable.setVisibility(View.GONE);
+        newOrderTable = view.findViewById(R.id.newOrder);
+        newOrderTable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orderTable.setVisibility(View.VISIBLE);
+                newOrderTable.setVisibility(View.GONE);
+            }
+        });
 
         geoData= new ArrayList<>();
-        spinner_category = view.findViewById(R.id.treeCategory);
-        spinner_size = view.findViewById(R.id.treeSize);
+
         imageView = view.findViewById(R.id.photo);
-        ArrayAdapter spinnerCategoryAdapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(), R.array.tree_category, android.R.layout.simple_spinner_item);
-        spinner_category.setAdapter(spinnerCategoryAdapter);
-        ArrayAdapter spinnerSizeAdapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(), R.array.tree_size, android.R.layout.simple_spinner_item);
-        spinner_size.setAdapter(spinnerSizeAdapter);
 
-        spinner_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                treeCategory = (String) parent.getItemAtPosition(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        spinner_size.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                treeSize = (String) parent.getItemAtPosition(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        nameInput = view.findViewById(R.id.treeName);
+        areaInput = view.findViewById(R.id.oderArea);
         commentInput = view.findViewById(R.id.plantComment);
         gps_lon = view.findViewById(R.id.treeGeo_lon);
         gps_lat = view.findViewById(R.id.treeGeo_lat);
@@ -173,16 +151,11 @@ public class AddTreeFragment extends Fragment {
             }
         });
 
-
-
-
-
-
         submitForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                treeName = nameInput.getText().toString();
-                treeComment = commentInput.getText().toString();
+                orderArea = areaInput.getText().toString();
+                areaComment = commentInput.getText().toString();
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 View viewSubmit = getLayoutInflater().inflate(R.layout.form_confirm, null);
                 TextView name_c, category_c, size_c, date_c;
@@ -190,9 +163,8 @@ public class AddTreeFragment extends Fragment {
                 category_c = viewSubmit.findViewById(R.id.category);
                 size_c = viewSubmit.findViewById(R.id.size);
                 date_c = viewSubmit.findViewById(R.id.date);
-                name_c.setText("Name: " + treeName);
-                category_c.setText("Category: " + treeCategory);
-                size_c.setText("Size: " + treeSize);
+                name_c.setText("Name: " + orderArea);
+
                 date_c.setText("Date: " + treePlantDate);
                 builder.setView(viewSubmit);
                 builder.setTitle("Confirm your submit");
@@ -205,7 +177,7 @@ public class AddTreeFragment extends Fragment {
                         editor.putString("id", "user1");
                         editor.commit();
                         String userId = sharedPreferences.getString("id", "notExist");
-                        Tree tree = new Tree(treeName, treeSize, treeCategory, treePosition, treePlantDate, treeComment, userId);
+                        Tree tree = new Tree(orderArea, "", "", treePosition, treePlantDate, areaComment, userId);
                         db.collection("tree1").document().set(tree);
                         dialog.cancel();
                         Toast.makeText(getContext(),"Submit successfully", Toast.LENGTH_LONG).show();
@@ -370,5 +342,7 @@ public class AddTreeFragment extends Fragment {
 
         return exif;
     }
+
+
 
 }

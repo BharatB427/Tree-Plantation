@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.AddTreeFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:padding="5dp"
+        android:gravity="center"
+        android:background="@drawable/title">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Plant trees"
+            android:textSize="30sp"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+
+        <LinearLayout
+            android:id="@+id/orderTable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/edit_bg"
+            android:paddingLeft="5dp"
+            android:layout_marginRight="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="New Order:"
+                android:textSize="40sp"/>
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp">
+
+                <TableRow
+                    android:layout_marginTop="5dp">
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:text="Area: "
+                        android:textSize="25sp" />
+                    <EditText
+                        android:id="@+id/oderArea"
+                        android:layout_width="220dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:paddingLeft="5dp"
+                        android:lines="1"
+                        android:inputType="text"
+                        android:imeOptions="actionDone"
+                        android:maxLength="20"
+                        android:background="@drawable/edit_bg"/>
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp">
+
+                <TableRow
+                    android:layout_marginTop="5dp">
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:text="Photo: "
+                        android:textSize="25sp" />
+
+                    <Button
+                        android:id="@+id/addPhoto"
+                        android:layout_width="100dp"
+                        android:height="40dp"
+                        android:text="Add"
+                        android:textAllCaps="false"/>
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp">
+                <TableRow
+                    android:layout_marginTop="5dp">
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:text=" "
+                        android:textSize="25sp" />
+                    <ImageView
+                        android:id="@+id/photo"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp"
+                        />
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginTop="5dp">
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:text="Date: "
+                        android:textSize="25sp" />
+                    <TextView
+                        android:id="@+id/plantDate"
+                        android:layout_width="130dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:paddingLeft="5dp"
+                        android:lines="1"
+                        android:enabled="false"/>
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_marginTop="5dp">
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:text="Longitude:"
+                        android:textSize="25sp" />
+                    <TextView
+                        android:id="@+id/treeGeo_lon"
+                        android:layout_width="230dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="18sp"
+                        android:paddingLeft="5dp"
+                        android:lines="1"
+                        android:inputType="text"
+                        android:imeOptions="actionDone"
+                        android:enabled="false"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginTop="5dp">
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:text="Latitude: "
+                        android:textSize="25sp" />
+                    <TextView
+                        android:id="@+id/treeGeo_lat"
+                        android:layout_width="230dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="18sp"
+                        android:paddingLeft="5dp"
+                        android:lines="1"
+                        android:inputType="text"
+                        android:imeOptions="actionDone"
+                        android:enabled="false"/>
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp">
+
+                <TableRow
+                    android:layout_height="120dp">
+                    <TextView
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:text="Comment: "
+                        android:textSize="25sp" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/plantComment"
+                            android:layout_width="220dp"
+                            android:layout_height="100dp"
+                            android:layout_marginLeft="5dp"
+                            android:paddingLeft="5dp"
+                            android:minLines="5"
+                            android:gravity="top"
+                            android:inputType="textMultiLine"
+                            android:scrollHorizontally="false"
+                            android:maxLength="200"
+                            android:background="@drawable/edit_bg"/>
+                    </LinearLayout>
+                </TableRow>
+
+            </TableLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
+
+                <Button
+                    android:id="@+id/submitForm"
+                    android:layout_width="120dp"
+                    android:layout_height="60dp"
+                    android:textAllCaps="false"
+                    android:text="Submit"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/addButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/newOrder"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Create a new order"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+
+</LinearLayout>

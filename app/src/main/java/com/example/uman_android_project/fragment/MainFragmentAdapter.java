@@ -20,6 +20,9 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
                 fragment = new AddTreeFragment();
                 break;
             case 2:
+                fragment = new AddOrderFragment();
+                break;
+            case 3:
                 fragment = new ProfileFragment();
                 break;
             default:
@@ -30,6 +33,6 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 }

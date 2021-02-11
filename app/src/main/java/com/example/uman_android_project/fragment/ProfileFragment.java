@@ -8,10 +8,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.uman_android_project.PlantationHistoryActivity;
+import com.example.uman_android_project.ProfileActivity;
 import com.example.uman_android_project.R;
+import com.example.uman_android_project.SettingActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,7 +63,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    TextView profile, plantation, setting;
+    LinearLayout profile, plantation, setting;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,6 +80,23 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        profile = view.findViewById(R.id.profile);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        setting = view.findViewById(R.id.setting);
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SettingActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

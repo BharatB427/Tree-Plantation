@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
     };
     public static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private final int[] TAB_TITLES = new int[]{R.string.menu_main, R.string.menu_newTree, R.string.menu_profile};
-    private final int[] TAB_IMGS = new int[]{R.drawable.home_menu, R.drawable.tree_menu, R.drawable.profile_menu};
+    private final int[] TAB_TITLES = new int[]{R.string.menu_main, R.string.menu_newTree, R.string.menu_newOrder, R.string.menu_profile};
+    private final int[] TAB_IMGS = new int[]{R.drawable.home_menu, R.drawable.tree_menu, R.drawable.tree_menu, R.drawable.profile_menu};
 
     private CustomViewPager viewPager;
     private TabLayout tabLayout;
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         currentDate = calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR);
 
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        /*LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         criteria.setAltitudeRequired(false);
@@ -92,9 +92,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProviderDisabled(String provider) {
             }
-        });
-        Location location=locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        locationUpdates(location);
+        });*/
+        //Location location=locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        //locationUpdates(location);
 
     }
 
