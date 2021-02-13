@@ -93,7 +93,7 @@ public class AddOrderFragment extends Fragment {
 
     private EditText areaInput, commentInput ;
     private TextView dateInput,gps_lat,gps_lon;
-    private Button chooseDate, addPhoto, submitForm, newOrderTable;
+    private Button chooseDate, addPhoto, submitForm, newOrderButton;
     private String path;
     private ImageView imageView;
     private String orderArea, treePosition, treePlantDate, treePhoto, areaComment;
@@ -110,12 +110,12 @@ public class AddOrderFragment extends Fragment {
 
         orderTable = view.findViewById(R.id.orderTable);
         orderTable.setVisibility(View.GONE);
-        newOrderTable = view.findViewById(R.id.newOrder);
-        newOrderTable.setOnClickListener(new View.OnClickListener() {
+        newOrderButton = view.findViewById(R.id.newOrder);
+        newOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 orderTable.setVisibility(View.VISIBLE);
-                newOrderTable.setVisibility(View.GONE);
+                newOrderButton.setVisibility(View.GONE);
             }
         });
 
@@ -172,7 +172,7 @@ public class AddOrderFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //submit this form
-                        SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+                        /*SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("id", "user1");
                         editor.commit();
@@ -180,7 +180,7 @@ public class AddOrderFragment extends Fragment {
                         Tree tree = new Tree(orderArea, "", "", treePosition, treePlantDate, areaComment, userId);
                         db.collection("tree1").document().set(tree);
                         dialog.cancel();
-                        Toast.makeText(getContext(),"Submit successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),"Submit successfully", Toast.LENGTH_LONG).show();*/
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         startActivity(intent);
                     }
@@ -192,6 +192,7 @@ public class AddOrderFragment extends Fragment {
                     }
                 });
                 builder.create().show();
+                newOrderButton.setVisibility(View.VISIBLE);
             }
         });
 

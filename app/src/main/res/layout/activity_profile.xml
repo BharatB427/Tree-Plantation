@@ -23,4 +23,85 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:text="Profile Photo"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:gravity="left|center_vertical"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right">
+            <ImageView
+                android:id="@+id/photo"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:text="Name"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:gravity="left|center_vertical"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right">
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:gravity="right"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:text="City"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:gravity="left|center_vertical"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right">
+            <TextView
+                android:id="@+id/city"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:gravity="right"/>
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>
