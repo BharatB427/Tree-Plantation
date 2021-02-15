@@ -25,7 +25,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="15dp">
@@ -43,8 +43,9 @@
             android:gravity="right">
             <ImageView
                 android:id="@+id/photo"
-                android:layout_width="70dp"
-                android:layout_height="70dp" />
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -76,6 +77,10 @@
         </LinearLayout>
     </LinearLayout>
 
+
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -86,16 +91,16 @@
         <TextView
             android:layout_width="150dp"
             android:layout_height="match_parent"
-            android:text="City"
+            android:gravity="left|center_vertical"
+            android:text="Last Name"
             android:textAllCaps="false"
-            android:textSize="20sp"
-            android:gravity="left|center_vertical"/>
+            android:textSize="20sp" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="right">
             <TextView
-                android:id="@+id/city"
+                android:id="@+id/LastName"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:textAllCaps="false"
@@ -103,5 +108,6 @@
                 android:gravity="right"/>
         </LinearLayout>
     </LinearLayout>
+
 
 </LinearLayout>

@@ -25,6 +25,7 @@ public class SettingActivity extends AppCompatActivity {
                 //log out
 
                 Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
+                intent.putExtra("User logout ", "logout");
                 startActivity(intent);
             }
         });

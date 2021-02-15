@@ -29,17 +29,15 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.uman_android_project.GeoDegree;
-import com.example.uman_android_project.MainActivity;
-import com.example.uman_android_project.R;
-import com.example.uman_android_project.tree.Tree;
+
+import com.example.uman_android_project.*;
+
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.example.uman_android_project.MainActivity.db;
 
 /**
  * A simple {@link Fragment} subclass.

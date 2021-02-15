@@ -113,7 +113,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+    }
 
     private void initPager() {
         adapter = new MainFragmentAdapter(getSupportFragmentManager());
