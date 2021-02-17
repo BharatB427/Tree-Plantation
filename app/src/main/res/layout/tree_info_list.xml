@@ -13,7 +13,7 @@
         android:layout_weight="1">
 
         <TextView
-            android:id="@+id/treeName"
+            android:id="@+id/treeId"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
@@ -42,7 +42,7 @@
         android:layout_weight="1">
 
         <TextView
-            android:id="@+id/treeCategory"
+            android:id="@+id/treeArea"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"
@@ -53,7 +53,7 @@
             android:textColor="@android:color/black" />
 
         <TextView
-            android:id="@+id/treeSize"
+            android:id="@+id/treePosition"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"

@@ -25,12 +25,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 
 import com.example.uman_android_project.*;
+import com.example.uman_android_project.tree.Tree;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 
 import java.io.IOException;
@@ -38,6 +46,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.example.uman_android_project.MainActivity.db;
+import static com.example.uman_android_project.MainActivity.storageReference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -92,13 +102,16 @@ public class AddOrderFragment extends Fragment {
     private EditText areaInput, commentInput ;
     private TextView dateInput,gps_lat,gps_lon;
     private Button chooseDate, addPhoto, submitForm, newOrderButton;
-    private String path;
+    private String path, imageUri;
+    private Uri path_image;
     private ImageView imageView;
     private String orderArea, treePosition, treePlantDate, treePhoto, areaComment;
     public static final int PICK_IMAGE = 1;
     private String imgLat,imgLong;
     private List<String> geoData;
     private LinearLayout orderTable;
+
+    private String userId="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -170,15 +183,15 @@ public class AddOrderFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //submit this form
-                        /*SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+                        /*SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("id", "user1");
-                        editor.commit();
-                        String userId = sharedPreferences.getString("id", "notExist");
-                        Tree tree = new Tree(orderArea, "", "", treePosition, treePlantDate, areaComment, userId);
+                        editor.commit();*/
+                        userId = sharedPreferences.getString("id", "notExist");
+                        Tree tree = new Tree(orderArea, treePosition, treePlantDate, areaComment, userId, imageUri);
                         db.collection("tree1").document().set(tree);
                         dialog.cancel();
-                        Toast.makeText(getContext(),"Submit successfully", Toast.LENGTH_LONG).show();*/
+                        Toast.makeText(getContext(),"Submit successfully", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         startActivity(intent);
                     }
@@ -207,8 +220,8 @@ public class AddOrderFragment extends Fragment {
             if (requestCode == 1 && resultCode == -1 && null != data) {
                 // Get the Image from data
 
-                Uri path_image= data.getData();
-                path=getRealPathFromURI(path_image);
+                path_image= data.getData();
+                path = getRealPathFromURI(path_image);
                 initialize();
 
             } else {
@@ -244,6 +257,28 @@ public class AddOrderFragment extends Fragment {
         Bitmap bm = BitmapFactory.decodeFile(path);
 
         imageView.setImageBitmap(bm);
+
+        final StorageReference imageRef = storageReference.child("images/" + userId + path_image.getLastPathSegment());
+        UploadTask uploadTask = imageRef.putFile(path_image);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getActivity(),"Fail to upload to the cloud!",Toast.LENGTH_LONG).show();
+            }
+        });
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                StorageMetadata snapshotMetadata = taskSnapshot.getMetadata();
+                Task<Uri> downloadUrl = imageRef.getDownloadUrl();
+                downloadUrl.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        imageUri = uri.toString();
+                    }
+                });
+            }
+        });
 
      dateInput.setText(ReadDate(path));
         treePlantDate = dateInput.getText().toString();

@@ -23,6 +23,8 @@ import com.example.uman_android_project.fragment.CustomViewPager;
 import com.example.uman_android_project.fragment.MainFragmentAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.sql.Time;
 import java.text.DecimalFormat;
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
     public static FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    public static StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
     private final int[] TAB_TITLES = new int[]{R.string.menu_main, R.string.menu_newTree, R.string.menu_newOrder, R.string.menu_profile};
     private final int[] TAB_IMGS = new int[]{R.drawable.home_menu, R.drawable.tree_menu, R.drawable.tree_menu, R.drawable.profile_menu};

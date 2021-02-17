@@ -1,34 +1,27 @@
 package com.example.uman_android_project.tree;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 public class Tree implements Serializable {
     private String id;
     private String owner;
-    private String name;
-    private String category;
-    private String size;
-    private String gps;
+    private String area;
+    private String position;
     private String date;
-    private String photo;
+    private String photoUri;
     private String comment;
 
-    public Tree(String name, String size, String category, String gps, String date, String comment, String owner) {
-        this.id = "1";
-        this.photo = "photo";
-        this.name = name;
-        this.size = size;
-        this.category = category;
-        this.gps = gps;
+    public Tree(String area, String position, String date, String comment, String owner, String photoUri) {
+        UUID uuid = UUID.randomUUID();
+        id = uuid.toString();
+        id = id.replace("-","");
+        this.area = area;
+        this.position = position;
         this.date = date;
         this.comment = comment;
         this.owner = owner;
-    }
-
-    public Tree(String id, String name, String owner) {
-        this.id = id;
-        this.name = name;
-        this.owner = owner;
+        this.photoUri = photoUri;
     }
 
     public Tree(){
@@ -50,36 +43,20 @@ public class Tree implements Serializable {
         this.owner = owner;
     }
 
-    public String getName() {
-        return name;
+    public String getArea() {
+        return area;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setArea(String area) {
+        this.area = area;
     }
 
-    public String getCategory() {
-        return category;
+    public String getPosition() {
+        return position;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getGps() {
-        return gps;
-    }
-
-    public void setGps(String gps) {
-        this.gps = gps;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public String getDate() {
@@ -90,12 +67,12 @@ public class Tree implements Serializable {
         this.date = date;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getPhotoUri() {
+        return photoUri;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
     }
 
     public String getComment() {

@@ -36,7 +36,7 @@
                 android:text="Name: "
                 android:textSize="25sp" />
             <EditText
-                android:id="@+id/treeName"
+                android:id="@+id/treeId"
                 android:layout_width="230dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="5dp"
@@ -56,7 +56,7 @@
                 android:text="Category: "
                 android:textSize="25sp" />
             <Spinner
-                android:id="@+id/treeCategory"
+                android:id="@+id/treeArea"
                 android:layout_width="230dp"
                 android:layout_height="40dp"
                 android:paddingLeft="5dp"/>
@@ -70,7 +70,7 @@
                 android:text="Size: "
                 android:textSize="25sp" />
             <Spinner
-                android:id="@+id/treeSize"
+                android:id="@+id/treePosition"
                 android:layout_width="230dp"
                 android:layout_height="40dp"
                 android:paddingLeft="5dp"/>

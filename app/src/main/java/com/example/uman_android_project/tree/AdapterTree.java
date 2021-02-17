@@ -18,14 +18,14 @@ import java.util.List;
 
 public class AdapterTree extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, category, size, date;
+        public TextView id, area, treePosition, date;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.treeName);
+            id = itemView.findViewById(R.id.treeId);
             date = itemView.findViewById(R.id.date);
-            category = itemView.findViewById(R.id.treeCategory);
-            size = itemView.findViewById(R.id.treeSize);
+            area = itemView.findViewById(R.id.treeArea);
+            treePosition = itemView.findViewById(R.id.treePosition);
         }
     }
 
@@ -44,14 +44,14 @@ public class AdapterTree extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((MyViewHolder) holder).name.setText("Name: " + data.get(position).getName());
-        Log.d("TAG", "onBindViewHolder: name" + data.get(position).getName());
+        ((MyViewHolder) holder).id.setText("Name: " + data.get(position).getArea());
+        Log.d("TAG", "onBindViewHolder: id" + data.get(position).getArea());
         ((MyViewHolder) holder).date.setText("Date: " + data.get(position).getDate());
         Log.d("TAG", "onBindViewHolder: date" + data.get(position).getDate());
-        ((MyViewHolder) holder).category.setText("Category: " + data.get(position).getCategory());
-        Log.d("TAG", "onBindViewHolder: cate" + data.get(position).getCategory());
-        ((MyViewHolder) holder).size.setText("Size: " + data.get(position).getSize());
-        Log.d("TAG", "onBindViewHolder: size" + data.get(position).getSize());
+        ((MyViewHolder) holder).area.setText("Area: " + data.get(position).getArea());
+        Log.d("TAG", "onBindViewHolder: area" + data.get(position).getArea());
+        ((MyViewHolder) holder).treePosition.setText("Position: " + data.get(position).getPosition());
+        Log.d("TAG", "onBindViewHolder: position" + data.get(position).getPosition());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

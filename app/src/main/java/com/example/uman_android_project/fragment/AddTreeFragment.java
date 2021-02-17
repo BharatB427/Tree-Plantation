@@ -111,8 +111,8 @@ public class AddTreeFragment extends Fragment {
 
 
         geoData= new ArrayList<>();
-        spinner_category = view.findViewById(R.id.treeCategory);
-        spinner_size = view.findViewById(R.id.treeSize);
+        spinner_category = view.findViewById(R.id.treeArea);
+        spinner_size = view.findViewById(R.id.treePosition);
         imageView = view.findViewById(R.id.photo);
         ArrayAdapter spinnerCategoryAdapter = ArrayAdapter.createFromResource(getActivity().getBaseContext(), R.array.tree_category, android.R.layout.simple_spinner_item);
         spinner_category.setAdapter(spinnerCategoryAdapter);
@@ -143,7 +143,7 @@ public class AddTreeFragment extends Fragment {
             }
         });
 
-        nameInput = view.findViewById(R.id.treeName);
+        nameInput = view.findViewById(R.id.treeId);
         commentInput = view.findViewById(R.id.plantComment);
         gps_lon = view.findViewById(R.id.treeGeo_lon);
         gps_lat = view.findViewById(R.id.treeGeo_lat);
@@ -198,7 +198,7 @@ public class AddTreeFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //submit this form
-                        SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+                        /*SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("id", "user1");
                         editor.commit();
@@ -206,7 +206,7 @@ public class AddTreeFragment extends Fragment {
                         Tree tree = new Tree(treeName, treeSize, treeCategory, treePosition, treePlantDate, treeComment, userId);
                         db.collection("tree1").document().set(tree);
                         dialog.cancel();
-                        Toast.makeText(getContext(),"Submit successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),"Submit successfully", Toast.LENGTH_LONG).show();*/
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         startActivity(intent);
                     }
