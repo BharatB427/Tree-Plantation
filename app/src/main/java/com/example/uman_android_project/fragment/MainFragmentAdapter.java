@@ -14,15 +14,12 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
         Fragment fragment = null;
         switch (i) {
             case 0:
-                fragment = new HomeFragment();
+                fragment = new FarmerFragment();
                 break;
             case 1:
-                fragment = new AddTreeFragment();
+                fragment = new OrderFragment();
                 break;
             case 2:
-                fragment = new AddOrderFragment();
-                break;
-            case 3:
                 fragment = new ProfileFragment();
                 break;
             default:
@@ -33,6 +30,6 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 }

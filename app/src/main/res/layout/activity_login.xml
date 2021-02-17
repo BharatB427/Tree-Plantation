@@ -1,30 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:orientation="vertical">
 
-    <!--<com.facebook.login.widget.LoginButton
-        android:id="@+id/login_button"
-        android:layout_width="wrap_content"
+    <TableLayout
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="109dp"
-        android:layout_marginLeft="109dp"
-        android:layout_marginTop="395dp"
-        android:layout_marginEnd="109dp"
-        android:layout_marginRight="109dp"
-        android:layout_marginBottom="307dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />-->
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="200dp">
+
+        <TableRow
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:text="AdminName:"
+                android:textSize="30dp"/>
+            <EditText
+                android:id="@+id/adminName"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:paddingLeft="5dp"
+                android:lines="1"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:maxLength="20"
+                android:background="@drawable/edit_bg"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_marginTop="5dp">
+            <TextView
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:text="Password:"
+                android:textSize="30dp"/>
+            <EditText
+                android:id="@+id/adminPassword"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:paddingLeft="5dp"
+                android:lines="1"
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"
+                android:maxLength="20"
+                android:background="@drawable/edit_bg"/>
+        </TableRow>
+    </TableLayout>
 
     <Button
+        android:id="@+id/button_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="60dp"
+        android:background="#3c8dc4"
+        android:text="Login"
+        android:textColor="#ffffff"
+        android:textSize="20dp"
+        android:textAllCaps="false"
+        android:onClick="adminLogin"/>
+
+    <!--<Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,5 +78,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_button"
         app:layout_constraintVertical_bias="0.424"
-        tools:ignore="UnknownId" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        tools:ignore="UnknownId" />-->
+
+</LinearLayout>

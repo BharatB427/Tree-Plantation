@@ -11,45 +11,22 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.uman_android_project.PlantationHistoryActivity;
-import com.example.uman_android_project.ProfileActivity;
+import com.example.uman_android_project.LoginActivity;
+import com.example.uman_android_project.MainActivity;
 import com.example.uman_android_project.R;
-import com.example.uman_android_project.SettingActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import static com.example.uman_android_project.LoginActivity.admin;
+import static com.example.uman_android_project.LoginActivity.adminName;
+
 public class ProfileFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public ProfileFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,43 +34,27 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
-    LinearLayout profile, plantation, setting;
+    private LinearLayout logOut;
+    private TextView textView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view =  inflater.inflate(R.layout.fragment_profile, container, false);
 
-        plantation = view.findViewById(R.id.plantationHistory);
-        plantation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), PlantationHistoryActivity.class);
-                startActivity(intent);
-            }
-        });
+        textView = view.findViewById(R.id.welcome);
+        textView.setText("Welcome, " + LoginActivity.adminName);
 
-        profile = view.findViewById(R.id.profile);
-        profile.setOnClickListener(new View.OnClickListener() {
+        logOut = view.findViewById(R.id.logOut);
+        logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        setting = view.findViewById(R.id.setting);
-        setting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), SettingActivity.class);
+                //log out
+                LoginActivity.adminName = null;
+                Intent intent = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });

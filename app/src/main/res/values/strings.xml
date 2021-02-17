@@ -8,9 +8,8 @@
         <item>Profile</item>
     </string-array>
 
-    <string name="menu_main">Home</string>
-    <string name="menu_newTree">Plant Tree</string>
-    <string name="menu_newOrder">New Order</string>
+    <string name="menu_farmer">Farmer</string>
+    <string name="menu_order">Order</string>
     <string name="menu_profile">Profile</string>
 
     <string-array name="tree_category">

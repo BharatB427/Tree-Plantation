@@ -9,90 +9,31 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:paddingTop="20dp">
-
-        <ImageView
-            android:id="@+id/profilePhoto"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@drawable/profile_photo"/>
-
-        <TextView
-            android:id="@+id/profileName"
-            android:layout_width="200dp"
-            android:layout_height="80dp"
-            android:layout_marginLeft="30dp"
-            android:paddingLeft="15dp"
-            android:text="Your Name"
-            android:textSize="25sp"
-            android:gravity="center_vertical"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/profile"
-        android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="30dp">
+        android:layout_marginTop="5dp"
+        android:gravity="center">
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/profile_info"/>
         <TextView
+            android:id="@+id/welcome"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:paddingLeft="30dp"
-            android:text="Your profile"
+            android:text="welcome"
             android:textAllCaps="false"
             android:textSize="20sp"
             android:gravity="center_vertical"/>
 
     </LinearLayout>
-
     <LinearLayout
-        android:id="@+id/plantationHistory"
+        android:id="@+id/logOut"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginTop="5dp"
-        android:paddingLeft="30dp">
+        android:layout_marginTop="300dp"
+        android:gravity="center">
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/plantatioin"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:paddingLeft="30dp"
-            android:text="Plantation History"
-            android:textAllCaps="false"
-            android:textSize="20sp"
-            android:gravity="center_vertical"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/setting"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginTop="5dp"
-        android:paddingLeft="30dp">
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/setting"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:paddingLeft="30dp"
-            android:text="Setting"
+            android:text="Log Out"
             android:textAllCaps="false"
             android:textSize="20sp"
             android:gravity="center_vertical"/>

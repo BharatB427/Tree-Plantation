@@ -16,12 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Uman_Android_Project">
-        <activity android:name=".SettingActivity"></activity>
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".PlantationDetailActivity" />
-        <activity android:name=".PlantationHistoryActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

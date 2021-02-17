@@ -2,6 +2,8 @@ package com.example.uman_android_project;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -28,6 +30,9 @@ import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
+import static com.example.uman_android_project.LoginActivity.admin;
+import static com.example.uman_android_project.LoginActivity.adminName;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -36,10 +41,9 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
-    public static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private final int[] TAB_TITLES = new int[]{R.string.menu_main, R.string.menu_newTree, R.string.menu_newOrder, R.string.menu_profile};
-    private final int[] TAB_IMGS = new int[]{R.drawable.home_menu, R.drawable.tree_menu, R.drawable.tree_menu, R.drawable.profile_menu};
+    private final int[] TAB_TITLES = new int[]{R.string.menu_farmer, R.string.menu_order, R.string.menu_profile};
+    private final int[] TAB_IMGS = new int[]{R.drawable.tree_menu, R.drawable.tree_menu, R.drawable.profile_menu};
 
     private CustomViewPager viewPager;
     private TabLayout tabLayout;
@@ -63,39 +67,6 @@ public class MainActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         currentDate = calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR);
 
-        /*LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        criteria.setAltitudeRequired(false);
-        criteria.setBearingRequired(false);
-        criteria.setCostAllowed(false);
-        criteria.setPowerRequirement(Criteria.POWER_LOW);
-        String provider = locationManager.getBestProvider(criteria, true);
-        gps = provider;
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-            }
-        });*/
-        //Location location=locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        //locationUpdates(location);
-
     }
 
     private void setTabs(TabLayout tabLayout, LayoutInflater layoutInflater, int[] tab_titles, int[] tab_imgs) {
@@ -112,8 +83,6 @@ public class MainActivity extends AppCompatActivity {
             tabLayout.addTab(tab);
         }
     }
-
-
 
     private void initPager() {
         adapter = new MainFragmentAdapter(getSupportFragmentManager());
@@ -138,39 +107,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void locationUpdates(Location location){
-        DecimalFormat df = new DecimalFormat("#.00");
-        if(location!=null){
-            StringBuffer stringBuffer=new StringBuffer();
-            stringBuffer.append("longitude: ");
-            String longtitude = df.format(location.getLongitude());
-            if (longtitude.contains("-")) {
-                stringBuffer.append(longtitude.substring(1));
-                stringBuffer.append("S");
-            }
-            else {
-                stringBuffer.append(longtitude);
-                stringBuffer.append("N");
-            }
-            stringBuffer.append(" ,latitude: ");
-            String latitude = df.format(location.getLatitude());
-            Log.i(TAG, "locationUpdates: " + location.getLatitude());
-            if (latitude.contains("-")) {
-                stringBuffer.append(latitude.substring(1));
-                stringBuffer.append("W");
-            }
-            else {
-                stringBuffer.append(latitude);
-                stringBuffer.append("E");
-            }
-            Log.i(TAG, "locationUpdates: " + location.getLongitude());
-            gps = stringBuffer.toString();
-            Log.i(TAG, "location"+ gps);
-        }else {
-            gps = "no.......";
-        }
-
-    }
     public static void verifyStoragePermissions(Activity activity) {
         // Check if we have write permission
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -183,4 +119,6 @@ public class MainActivity extends AppCompatActivity {
                     REQUEST_EXTERNAL_STORAGE
             );
         }
-}}
+    }
+
+}
