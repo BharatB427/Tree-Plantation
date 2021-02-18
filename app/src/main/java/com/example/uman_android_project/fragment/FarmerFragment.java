@@ -42,7 +42,6 @@ public class FarmerFragment extends Fragment {
     }
 
     private RecyclerView recyclerView;
-    private List<Farmer> farmerList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,8 +68,6 @@ public class FarmerFragment extends Fragment {
 
             }
         });
-
-
 
         return view;
     }

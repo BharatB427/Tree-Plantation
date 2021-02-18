@@ -47,7 +47,6 @@ public class OrderFragment extends Fragment {
     }
 
     private RecyclerView recyclerView;
-    private List<Order> orderList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,7 +57,6 @@ public class OrderFragment extends Fragment {
 
         Query query = FirebaseFirestore.getInstance()
                 .collection("tree");
-                //.whereEqualTo("owner", "user1");
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
