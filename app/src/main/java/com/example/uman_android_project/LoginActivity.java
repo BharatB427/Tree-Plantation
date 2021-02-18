@@ -69,18 +69,11 @@ public class LoginActivity extends AppCompatActivity {
         password = etPsw.getText().toString();
         Log.i("Admin", adminName+" "+password);
 
-        Log.i("admin", sharedPreferences.getString("username", null)+ " "+ sharedPreferences.getString("password", null));
+        //Log.i("admin", sharedPreferences.getString("username", null)+ " "+ sharedPreferences.getString("password", null));
 
-        if(sharedPreferences.getString("username", null).equals(adminName) &&
-                sharedPreferences.getString("password", null).equals(password)) {
-            Toast.makeText(LoginActivity.this,"Login successfully", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
-
-        /*Query query = FirebaseFirestore.getInstance()
-                .collection("adminuser")
-                .whereEqualTo("name", adminName);
+        Query query = FirebaseFirestore.getInstance()
+                .collection("adminuser");
+                //.whereEqualTo("name", adminName);
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -89,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 List<AdminUser> adminUserList = value.toObjects(AdminUser.class);
-                Log.i("Admin", value.toObjects(AdminUser.class).toString());
+                Log.i("Admin", value.toObjects(AdminUser.class).get(0).getName());
                 for(AdminUser adminUser: adminUserList){
                     System.out.println(adminUser.getName()+" "+adminUser.getPassword());
                     if(adminUser.getPassword() == password) {
@@ -100,11 +93,20 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         }
+                        else{
+                            Toast.makeText(LoginActivity.this,"User name or password is wrong", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else if(sharedPreferences.getString("username", null).equals(adminName) &&
+                            sharedPreferences.getString("password", null).equals(password)) {
+                        Toast.makeText(LoginActivity.this,"Login successfully", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
                     }
                 }
 
             }
-        });*/
+        });
 
     }
 

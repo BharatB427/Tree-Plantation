@@ -52,8 +52,7 @@ public class FarmerFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycleList);
 
         Query query = FirebaseFirestore.getInstance()
-                .collection("farmer")
-                .whereEqualTo("owner", "user1");
+                .collection("farmer");
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

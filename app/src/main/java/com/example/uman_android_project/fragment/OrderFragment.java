@@ -57,8 +57,8 @@ public class OrderFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycleList);
 
         Query query = FirebaseFirestore.getInstance()
-                .collection("order")
-                .whereEqualTo("owner", "user1");
+                .collection("tree");
+                //.whereEqualTo("owner", "user1");
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

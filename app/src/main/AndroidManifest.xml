@@ -16,6 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Uman_Android_Project">
+        <activity android:name=".OrderListOfFarmerActivity"></activity>
+        <activity android:name=".OrderDetailActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
