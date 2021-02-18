@@ -2,11 +2,10 @@ package com.example.uman_android_project;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,21 +13,34 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.uman_android_project.fragment.CustomViewPager;
 import com.example.uman_android_project.fragment.MainFragmentAdapter;
+import com.facebook.Profile;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.sql.Time;
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
     public static String currentDate;
     public static String gps;
 
+    private Profile profile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +80,58 @@ public class MainActivity extends AppCompatActivity {
         verifyStoragePermissions(MainActivity.this);
         Calendar calendar = Calendar.getInstance();
         currentDate = calendar.get(Calendar.DATE) + "/" + (calendar.get(Calendar.MONTH)+1) + "/" + calendar.get(Calendar.YEAR);
+
+        //get Facebook profile
+        profile = Profile.getCurrentProfile();
+        String Username= profile.getName();
+        String lastName= profile.getLastName();
+        SharedPreferences sharedPreferences = this.getSharedPreferences("user", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("userName", Username);
+        editor.putString("lastName", lastName);
+        //check if the farmer is the first time to log in
+        Query query = FirebaseFirestore.getInstance()
+                .collection("user")
+                .whereEqualTo("userName", Username)
+                .whereEqualTo("lastName", lastName);
+        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                boolean isExisting = false;
+                for (DocumentSnapshot ds : queryDocumentSnapshots) {
+                    String uName = ds.getString("userName");
+                    String lName = ds.getString("lastName");
+                    String userId = ds.getString("userId");
+                    if (uName.equals(Username) && lName.equals(lastName)) {
+                        isExisting = true;
+                        editor.putString("id", userId);
+                    }
+                }
+                if (!isExisting) {
+                    String userId = getAccountIdByUUId();
+                    editor.putString("id", userId);
+                    Map<String, Object> user = new HashMap<>();
+                    user.put("userName", Username);
+                    user.put("lastName", lastName);
+                    user.put("userId", userId);
+                    db.collection("tree1")
+                            .add(user)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error adding document", e);
+                                }
+                            });
+                }
+            }
+        });
+        editor.commit();
 
         /*LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         Criteria criteria = new Criteria();
@@ -189,4 +255,13 @@ public class MainActivity extends AppCompatActivity {
                     REQUEST_EXTERNAL_STORAGE
             );
         }
-}}
+    }
+    public static String getAccountIdByUUId() {
+        int hashCodeV = UUID.randomUUID().toString().hashCode();
+        if(hashCodeV < 0) {
+            hashCodeV = - hashCodeV;
+        }
+        return String.format("%016d", hashCodeV);
+    }
+
+}

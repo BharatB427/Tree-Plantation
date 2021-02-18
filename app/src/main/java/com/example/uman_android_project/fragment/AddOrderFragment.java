@@ -143,7 +143,7 @@ public class AddOrderFragment extends Fragment {
         //gps_lat.setText(MainActivity.gps.split(",")[1]);
 
 
-        treePosition = MainActivity.gps;
+        //treePosition = MainActivity.gps;
 
         //wait to update after finishing functions
         treePhoto = "";
@@ -169,13 +169,11 @@ public class AddOrderFragment extends Fragment {
                 areaComment = commentInput.getText().toString();
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 View viewSubmit = getLayoutInflater().inflate(R.layout.form_confirm, null);
-                TextView name_c, category_c, size_c, date_c;
+                TextView name_c, date_c;
                 name_c = viewSubmit.findViewById(R.id.name);
-                category_c = viewSubmit.findViewById(R.id.category);
-                size_c = viewSubmit.findViewById(R.id.size);
                 date_c = viewSubmit.findViewById(R.id.date);
                 name_c.setText("Name: " + orderArea);
-
+                treePosition = geoData.get(0) + " " + geoData.get(1);
                 date_c.setText("Date: " + treePlantDate);
                 builder.setView(viewSubmit);
                 builder.setTitle("Confirm your submit");
@@ -184,10 +182,7 @@ public class AddOrderFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         //submit this form
                         SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-                        /*SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("id", "user1");
-                        editor.commit();*/
-                        userId = sharedPreferences.getString("id", "notExist");
+                        userId = sharedPreferences.getString("id", "not");
                         Tree tree = new Tree(orderArea, treePosition, treePlantDate, areaComment, userId, imageUri);
                         db.collection("tree1").document().set(tree);
                         dialog.cancel();
@@ -258,7 +253,7 @@ public class AddOrderFragment extends Fragment {
 
         imageView.setImageBitmap(bm);
 
-        final StorageReference imageRef = storageReference.child("images/" + userId + path_image.getLastPathSegment());
+        final StorageReference imageRef = storageReference.child("images/"  + path_image.getLastPathSegment());
         UploadTask uploadTask = imageRef.putFile(path_image);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override

@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -32,9 +34,12 @@ public class PlantationHistoryActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
 
+        SharedPreferences sharedPreferences = this.getSharedPreferences("user", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("id", "notExist");
+
         Query query = FirebaseFirestore.getInstance()
                 .collection("tree1")
-                .whereEqualTo("owner", "user1");
+                .whereEqualTo("owner", userId);
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
