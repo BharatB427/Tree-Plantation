@@ -36,9 +36,9 @@ public class PlantationHistoryActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("user", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("id", "notExist");
-
+        Log.d("TAG", "Current user Id: " + userId);
         Query query = FirebaseFirestore.getInstance()
-                .collection("tree1")
+                .collection("tree")
                 .whereEqualTo("owner", userId);
         query.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override

@@ -184,7 +184,7 @@ public class AddOrderFragment extends Fragment {
                         SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
                         userId = sharedPreferences.getString("id", "not");
                         Tree tree = new Tree(orderArea, treePosition, treePlantDate, areaComment, userId, imageUri);
-                        db.collection("tree1").document().set(tree);
+                        db.collection("tree").document().set(tree);
                         dialog.cancel();
                         Toast.makeText(getContext(),"Submit successfully", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getContext(), MainActivity.class);
