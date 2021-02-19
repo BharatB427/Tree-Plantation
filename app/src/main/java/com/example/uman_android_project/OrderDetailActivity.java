@@ -64,7 +64,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                 List<Farmer> farmerList = value.toObjects(Farmer.class);
                 for(Farmer farmer: farmerList){
                     if(farmer.getUserId().equals(order.getOwner())){
-                        owner.setText(farmer.getUserName()+" "+farmer.getLastName());
+                        owner.setText(farmer.getUserName());
                     }
                 }
 

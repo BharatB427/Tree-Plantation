@@ -37,7 +37,7 @@ public class OrderListOfFarmerActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Farmer farmer = (Farmer) intent.getSerializableExtra("farmer");
-        title.setText(farmer.getUserName()+" "+farmer.getLastName()+"'s orders");
+        title.setText(farmer.getUserName()+"'s orders");
 
         Query query = FirebaseFirestore.getInstance()
                 .collection("tree")

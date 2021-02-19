@@ -46,7 +46,7 @@ public class AdapterFarmer extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((farmer_list) holder).name.setText(data.get(position).getUserName() + " " + data.get(position).getLastName());
+        ((farmer_list) holder).name.setText(data.get(position).getUserName());
         //Glide.with(holder.itemView.getContext()).load(data.get(position).getPictureURL()).into(((farmer_list)holder).picture);
         
         holder.itemView.setOnClickListener(new View.OnClickListener() {
